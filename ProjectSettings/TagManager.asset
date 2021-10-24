@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Node
+  - Edge
+  - SideBar
+  - PopUpMenu
+  - LevelLoader
+  - MouseHandler
+  - MessageBox
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - MovableNodes
+  - ImmovableNodes
+  - MovableEdges
+  - ImmovableEdges
+  - InactiveEdges
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: ImmovableEdges
+    uniqueID: 3119914131
+    locked: 0
+  - name: ImmovableNodes
+    uniqueID: 2243227679
+    locked: 0
+  - name: MovableEdges
+    uniqueID: 2711268485
+    locked: 0
+  - name: MovableNodes
+    uniqueID: 3731715717
+    locked: 0
