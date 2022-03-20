@@ -29,7 +29,13 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(int levelId, int worldId)
     {
-        StartCoroutine(GetLevelTextFromFile(levelId,worldId));
+        Debug.Log($"Level: {levelId}, World: {worldId}");
+        if (worldId == 4){
+            StartCoroutine(GetLevelTextFromBackend(levelId, worldId));
+        }
+        else{
+            StartCoroutine(GetLevelTextFromFile(levelId, worldId));
+        }
     }
 
 
@@ -50,6 +56,23 @@ public class LevelLoader : MonoBehaviour
         {
             levelText = System.IO.File.ReadAllText(filePath);
         }
+        Debug.Log("Level source text:");
+        Debug.Log(levelText);
+        loading = false;
+    }
+
+
+    IEnumerator GetLevelTextFromBackend(int levelId, int worldId)
+    {
+        loading = true;
+        string fileName = LevelUtils.LevelName(levelId, worldId);
+        string filePath = $"http://phylofun.remiejanssen.nl/phylofun/rearrangementproblems/{fileName}";
+        //Replace WWW with UnityWebRequest, www with webRequest and www.text with webRequest.downloadHandler.text ?
+        // see https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.Get.html
+        WWW www = new WWW(filePath);
+        yield return www;
+        levelText = www.text;
+
         Debug.Log("Level source text:");
         Debug.Log(levelText);
         loading = false;

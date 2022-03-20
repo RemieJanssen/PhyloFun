@@ -120,9 +120,12 @@ public static class LevelUtils
         levelFileNames[2].Add("HeadTrianglesToTheTop.lvl");// move triangles to the top
         levelFileNames[2].Add("HeadSimulateBasicTailMove.lvl");// Tail move using extra head
 
+        levelFileNames[3].Add("1");// most basic scheme for a head move
+
+
         for(int i=0; i<noOfWorlds; i++){
             noOfLevels[i] = levelFileNames[i].Count;
-            Debug.Log(noOfLevels[i]);
+            Debug.Log($"{noOfLevels[i]} levels in world {i+1}");
         }        
         
     }
