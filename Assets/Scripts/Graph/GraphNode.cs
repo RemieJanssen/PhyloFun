@@ -528,8 +528,7 @@ public class GraphNode : MonoBehaviour
                         {
                             movingEdge = graph.Find(parent,this);
                         }
-                        RearrangementMove move = new RearrangementMove(this, movingEdge, socket);
-                        GameState.Rearrange(move);
+                        GameState.Rearrange(this, movingEdge, socket);
                         GameState.EndRearrangement();
                     }
                     // otherwise, snap back to original position.

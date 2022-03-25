@@ -11,6 +11,7 @@ public static class GameState
     #region Fields
     static int currentLevel;
     static int currentWorld;
+    static bool onlineLevel;
     static List<List<int>> currentMedals;
     static LevelLoader loader;
     static bool inRearrangementMode;
@@ -53,8 +54,12 @@ public static class GameState
     {
         get { return rearrangementNode; }
     }
-
     
+    public static List<RearrangementMove> MovesUsedSequence
+    {
+        get { return movesUsedSequence; }
+    }
+
     public static int MovesUsed
     {
         get { return movesUsed; }
@@ -95,6 +100,11 @@ public static class GameState
         set { numberOfLabels = value;}
     }    
 
+    public static bool OnlineLevel
+    {
+        get { return onlineLevel; }
+        set { onlineLevel = value;}
+    }    
     
     public static string LevelName
     {
@@ -231,7 +241,10 @@ public static class GameState
     }
     
     
-    
+    public static void SendLevelSolution()
+    {
+        loader.SendLevelSolution();
+    }    
     
     
     public static void SetMedals(int worldNumber, int levelNumber, int medalNumber)
@@ -258,7 +271,7 @@ public static class GameState
         if (levelNumber <= LevelUtils.NoOfLevels(currentWorld))
         {
             currentLevel = levelNumber;
-            loader.LoadLevel(currentLevel,currentWorld);
+            loader.LoadLevel(currentLevel, currentWorld);
             return true;
         }
         return false;
@@ -271,7 +284,7 @@ public static class GameState
         {
             currentWorld = worldNumber;
             currentLevel = 1;
-            loader.LoadLevel(currentLevel,currentWorld);
+            loader.LoadLevel(currentLevel, currentWorld);
             return true;
         }
         return false;
@@ -345,27 +358,27 @@ public static class GameState
     // A function that rearranges the graph that contains the edges movingEdge goalEdge and the node endpoint.
     // The node endpoint was attached to is moved from movingEdge to goalEdge.
     // Returns true if there is a proper rearrangement, false if not (i.e., if we could not rearrange, or if the move was to an adjacent edge.
-    public static bool Rearrange(RearrangementMove move)
+    public static bool Rearrange(GraphNode movingEndpoint, GraphEdge movingEdge, GraphEdge goalEdge)
     {
         
-        DiGraph graph = move.MovingEdge.Tail.Graph;
+        DiGraph graph = movingEdge.Tail.Graph;
         GraphNode actualEndpoint = rearrangementNode;
-        GraphNode newParent = move.GoalEdge.Tail;
-        GraphNode newChild = move.GoalEdge.Head;
+        GraphNode newParent = goalEdge.Tail;
+        GraphNode newChild = goalEdge.Head;
         //Find the other endpoints of the `edge' we are removing an endpoint from
         //And find the other endpoint of the moving edge
         GraphNode currentParent = null;
         GraphNode currentChild = null;
         foreach (GraphNode parent in actualEndpoint.Parents)
         {
-            if (parent.Id != move.MovingEdge.Tail.Id)
+            if (parent.Id != movingEdge.Tail.Id)
             {
                 currentParent = parent;
             }
         }
         foreach (GraphNode child in actualEndpoint.Children)
         {
-            if (child.Id != move.MovingEdge.Head.Id)
+            if (child.Id != movingEdge.Head.Id)
             {
                 currentChild = child;
             }
@@ -377,9 +390,9 @@ public static class GameState
         }
 
         // If the move is to an adjacent edge, the graph does not change, we just move the endpoint.
-        if (move.GoalEdge.Tail == actualEndpoint || move.GoalEdge.Head == actualEndpoint)
+        if (goalEdge.Tail == actualEndpoint || goalEdge.Head == actualEndpoint)
         {
-            actualEndpoint.Position = move.MovingEndpoint.Position;//(newParent.Position + newChild.Position) / 2;
+            actualEndpoint.Position = movingEndpoint.Position;//(newParent.Position + newChild.Position) / 2;
             actualEndpoint.UpdateAdjacentEdgePositions();
             return false;
         }
@@ -401,7 +414,7 @@ public static class GameState
         graph.RemoveEdge(currentParent, actualEndpoint);
         Debug.Log("Canging receiving side");
         // change the part on the receiving side
-        graph.RemoveEdge(move.GoalEdge.Tail,move.GoalEdge.Head);
+        graph.RemoveEdge(goalEdge.Tail, goalEdge.Head);
         graph.AddEdge(newParent, actualEndpoint);
         graph.AddEdge(actualEndpoint, newChild);
 
@@ -413,17 +426,15 @@ public static class GameState
         currentChild.SetMapping(currentChild.MappedNode);
 
         //update positions
-        actualEndpoint.Position = move.MovingEndpoint.Position;//(newParent.Position + newChild.Position) / 2;
+        actualEndpoint.Position = movingEndpoint.Position;//(newParent.Position + newChild.Position) / 2;
         currentChild.UpdateAdjacentEdgePositions();
         actualEndpoint.UpdateAdjacentEdgePositions();
 
-        movesUsed++;
+        RearrangementMove move = new RearrangementMove(movingEndpoint, movingEdge, goalEdge, currentParent, currentChild);
         movesUsedSequence.Add(move);
-        Debug.Log("Current sequence:");
-        foreach (RearrangementMove m in movesUsedSequence){
-            Debug.Log(m.ToString());        
-        }
-        if (rearrangementNode==move.MovingEdge.Tail)
+ 
+        movesUsed++;
+        if (rearrangementNode==movingEdge.Tail)
         {
             movesUsedTail++;
         }

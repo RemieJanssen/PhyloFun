@@ -92,6 +92,10 @@ public class PhyloFun : MonoBehaviour
             }
         }
         //The level has been won
+        if (GameState.OnlineLevel) {
+            GameState.SendLevelSolution();
+        }
+
         //Check whether a second medal is earned
         int medals = 1;
         int currentMedals = GameState.CurrentMedals[GameState.CurrentWorld-1][GameState.CurrentLevel-1];
@@ -111,7 +115,6 @@ public class PhyloFun : MonoBehaviour
         // open the level-won pop-up menu
         MenuManager.GoToMenu(MenuName.Won);
         print("Yay, you won!");
-        return;
     }
 
 
