@@ -241,9 +241,9 @@ public static class GameState
     }
     
     
-    public static void SendLevelSolution()
+    public static void SendLevelSolution(List<List<int>> isomorphism)
     {
-        loader.SendLevelSolution();
+        loader.SendLevelSolution(isomorphism);
     }    
     
     

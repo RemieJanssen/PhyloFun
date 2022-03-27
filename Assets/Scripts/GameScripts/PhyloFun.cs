@@ -61,9 +61,7 @@ public class PhyloFun : MonoBehaviour
     {
         foreach (GraphNode node in changeGraph.Nodes)
         {
-            Debug.Log(node.Id.ToString()+" "+node.Position.ToString());
             node.ConnectToSocket();
-            Debug.Log(node.Id.ToString()+" "+node.Position.ToString());
         }
 
     }
@@ -83,6 +81,7 @@ public class PhyloFun : MonoBehaviour
                 return;
             }
         }
+        List<List<int>> isomorphism = new List<List<int>>();
         foreach (GraphNode node in goalGraph.Nodes)
         {
             if (!node.IsMapped)
@@ -90,10 +89,11 @@ public class PhyloFun : MonoBehaviour
                 Debug.Log("Not all nodes mapped");
                 return;
             }
+            isomorphism.Add(new List<int>(){node.LevelTextId, node.MappedNode.LevelTextId});
         }
         //The level has been won
         if (GameState.OnlineLevel) {
-            GameState.SendLevelSolution();
+            GameState.SendLevelSolution(isomorphism);
         }
 
         //Check whether a second medal is earned
@@ -222,15 +222,9 @@ public class PhyloFun : MonoBehaviour
                 float posx = (float.Parse(values[3], CultureInfo.InvariantCulture) + separation*graphNo) * ScreenUtils.GameplayWidth / (1+separation);
                 float posy = -float.Parse(values[4], CultureInfo.InvariantCulture) * ScreenUtils.GameplayHeight;
                 Vector3 pos = new Vector3(posx, posy, 0)+ ScreenUtils.GameplayTopLeft;
-                Debug.Log("How are my nodes placed so weird?");
-                Debug.Log(values[4]);
-                Debug.Log(float.Parse(values[4], CultureInfo.InvariantCulture));
-                Debug.Log(posy);
-                Debug.Log(ScreenUtils.GameplayHeight);
-                Debug.Log(ScreenUtils.GameplayTopLeft);
-                Debug.Log(pos);
                 GraphNode newNode = graphs[graphNo].AddNode(pos);
                 graphNodesById[graphNo][nodeId] = newNode;
+                newNode.LevelTextId = nodeId;
                 break;
             case "E":
 //                Debug.Log("Adding an edge");

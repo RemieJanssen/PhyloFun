@@ -17,6 +17,7 @@ public class GraphNode : MonoBehaviour
     List<GraphNode> children;
     List<GraphNode> parents;
     int id;
+    int levelTextId;
 
     // type support
     [SerializeField]
@@ -130,6 +131,12 @@ public class GraphNode : MonoBehaviour
     public int LabelId
     {
         get { return labelId; }
+    }
+
+    public int LevelTextId
+    {
+        get { return levelTextId; }
+        set { levelTextId = value; }
     }
 
 

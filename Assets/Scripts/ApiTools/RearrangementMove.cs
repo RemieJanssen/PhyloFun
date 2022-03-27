@@ -30,20 +30,20 @@ public class RearrangementMove
     public RearrangementMove(GraphNode movingEndpt, GraphEdge movingEd, GraphEdge goalEd, GraphNode originEdTail, GraphNode originEdHead)
     {
         movingEndpoint = movingEndpt;
-        movingEndpointId = movingEndpoint.Id;
+        movingEndpointId = movingEndpoint.LevelTextId;
         
         movingEdge = movingEd;
-        movingEdgeTailId = movingEdge.Tail.Id;
-        movingEdgeHeadId = movingEdge.Head.Id;
+        movingEdgeTailId = movingEdge.Tail.LevelTextId;
+        movingEdgeHeadId = movingEdge.Head.LevelTextId;
 
         goalEdge = goalEd;
-        goalEdgeTailId = goalEdge.Tail.Id;
-        goalEdgeHeadId = goalEdge.Head.Id;
+        goalEdgeTailId = goalEdge.Tail.LevelTextId;
+        goalEdgeHeadId = goalEdge.Head.LevelTextId;
 
         originEdgeTail = originEdTail;
         originEdgeHead = originEdHead;
-        originEdgeTailId = originEdgeTail.Id;
-        originEdgeHeadId = originEdgeHead.Id;
+        originEdgeTailId = originEdgeTail.LevelTextId;
+        originEdgeHeadId = originEdgeHead.LevelTextId;
 
 	}
     #endregion
@@ -87,11 +87,11 @@ public class RearrangementMove
     
     public string ToJson()
     {
-        string type = "Tail";
+        string type = "TAIL";
         if (Type()==MoveType.HEAD){
-            type = "Head";
+            type = "HEAD";
         }
-        return $"{{\"move_type\": \"{type}\", \"origin\": ({originEdgeTailId}, {originEdgeHeadId}),  \"moving_edge\": ({movingEdgeTailId}, {movingEdgeHeadId}),  \"target\": ({goalEdgeTailId}, {goalEdgeHeadId})}}";
+        return $"{{\"move_type\": \"{type}\", \"origin\": [{originEdgeTailId}, {originEdgeHeadId}],  \"moving_edge\": [{movingEdgeTailId}, {movingEdgeHeadId}],  \"target\": [{goalEdgeTailId}, {goalEdgeHeadId}]}}";
     }
     
 

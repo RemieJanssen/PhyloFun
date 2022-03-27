@@ -10,7 +10,8 @@ using System.Text;
 public class ProblemBackendStyle
 {
     public int id;
-    public int move_type;
+    public int goal_length;
+    public string move_type;
     public bool vertical_allowed;
     public NetworkBackendStyle network1;
     public NetworkBackendStyle network2;
