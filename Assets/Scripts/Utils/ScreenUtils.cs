@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ public static class ScreenUtils
 
     //Margin in screenSize system
     static float hudMarginLeft = 0f;
-    static float hudMarginRight = 300f;
+    static float hudMarginRight = 300f/1280f*Screen.width;
     static float hudMarginTop = 0f;
     static float hudMarginBottom = 0f;
 

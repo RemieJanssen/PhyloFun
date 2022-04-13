@@ -876,7 +876,7 @@ public class GraphNode : MonoBehaviour
     public override string ToString()
     {
         Vector2 gpPos = ScreenUtils.WorldToGameplayPosition(transform.position);
-        string vertexInfo = "V,," + Id.ToString() +","+ gpPos.x.ToString() + "," + gpPos.y.ToString();
+        string vertexInfo = $"V,0,{LevelTextId},{gpPos.x},{gpPos.y}";
         return vertexInfo;
     }
 

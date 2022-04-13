@@ -70,7 +70,7 @@ public static class LevelUtils
         levelFileNames = new List<List<string>>();
         noOfWorlds = 4;
         noOfLevels = new List<int>();
-        unlockNewWorldAt = new List<int> {7,4,4,999};
+        unlockNewWorldAt = new List<int> {7,4,4,99999};
         
         for(int i=0;i<noOfWorlds;i++){
             levelFileNames.Add(new List<string>());

@@ -142,8 +142,8 @@ public class PhyloFun : MonoBehaviour
         graphs = new DiGraph[2] { goalGraph, changeGraph };
         graphNodesById = new Dictionary<int, GraphNode>[2] { goalNodesByID, changeNodesByID };
         
-        //now read the file for the level
-        //string levelPath = Path.Combine(Application.streamingAssetsPath, levelFileName);
+        // now read the file for the level
+        // string levelPath = Path.Combine(Application.streamingAssetsPath, levelFileName);
         StreamReader input = null;
 
         //wait for the loading to finish
@@ -157,9 +157,9 @@ public class PhyloFun : MonoBehaviour
 
         try
         {
-            //Set the level name to standard: "Level: [levelnumber]"
+            // Set the level name to standard: "Level: [levelnumber]"
             GameState.LevelName = "";
-            //Default separation 
+            // Default separation 
             separation = separationDefault;
             using (Stream stream = GenerateStreamFromString(LevelUtils.LevelText))
             {
@@ -212,7 +212,7 @@ public class PhyloFun : MonoBehaviour
         switch (type)
         {
             case "S":
-                //If used, must occur before the nodes!
+                // If used, must occur before the nodes!
                separation = float.Parse(values[1]);
                 break;
             case "V":
