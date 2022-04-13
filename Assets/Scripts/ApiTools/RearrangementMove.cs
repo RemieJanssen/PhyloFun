@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
@@ -74,12 +74,12 @@ public class RearrangementMove
     /// <returns>the string</returns>
     public override string ToString()
     {
-        return $"endpoint {movingEndpoint.Id} of ({movingEdgeTailId}, {movingEdgeHeadId}) from ({originEdgeTailId}, {originEdgeHeadId}) to ({goalEdgeTailId}, {goalEdgeHeadId})";
+        return $"endpoint {movingEndpointId} of ({movingEdgeTailId}, {movingEdgeHeadId}) from ({originEdgeTailId}, {originEdgeHeadId}) to ({goalEdgeTailId}, {goalEdgeHeadId})";
     }
     
     public MoveType Type()
     {
-        if (movingEndpoint == movingEdge.Tail){
+        if (movingEndpointId == movingEdgeTailId){
             return MoveType.TAIL;
         }
         return MoveType.HEAD;

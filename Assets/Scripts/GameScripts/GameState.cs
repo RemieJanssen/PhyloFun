@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -365,8 +365,8 @@ public static class GameState
         GraphNode actualEndpoint = rearrangementNode;
         GraphNode newParent = goalEdge.Tail;
         GraphNode newChild = goalEdge.Head;
-        //Find the other endpoints of the `edge' we are removing an endpoint from
-        //And find the other endpoint of the moving edge
+        // Find the other endpoints of the `edge' we are removing an endpoint from
+        // And find the other endpoint of the moving edge
         GraphNode currentParent = null;
         GraphNode currentChild = null;
         foreach (GraphNode parent in actualEndpoint.Parents)
@@ -383,11 +383,14 @@ public static class GameState
                 currentChild = child;
             }
         }
-        //If somehow, we do not find one of them, return false
+        // If somehow, we do not find one of them, return false
         if (currentParent == null || currentChild == null)
         {
             return false;
         }
+
+        // Record the move before the graph changes and we lose the correspondence
+        RearrangementMove move = new RearrangementMove(movingEndpoint, movingEdge, goalEdge, currentParent, currentChild);
 
         // If the move is to an adjacent edge, the graph does not change, we just move the endpoint.
         if (goalEdge.Tail == actualEndpoint || goalEdge.Head == actualEndpoint)
@@ -412,7 +415,7 @@ public static class GameState
         graph.AddEdge(currentParent, currentChild);
         graph.RemoveEdge(actualEndpoint,currentChild);
         graph.RemoveEdge(currentParent, actualEndpoint);
-        Debug.Log("Canging receiving side");
+        Debug.Log("Changing receiving side");
         // change the part on the receiving side
         graph.RemoveEdge(goalEdge.Tail, goalEdge.Head);
         graph.AddEdge(newParent, actualEndpoint);
@@ -425,12 +428,12 @@ public static class GameState
         currentParent.CheckMapping();
         currentChild.SetMapping(currentChild.MappedNode);
 
-        //update positions
+        // update positions
         actualEndpoint.Position = movingEndpoint.Position;//(newParent.Position + newChild.Position) / 2;
         currentChild.UpdateAdjacentEdgePositions();
         actualEndpoint.UpdateAdjacentEdgePositions();
 
-        RearrangementMove move = new RearrangementMove(movingEndpoint, movingEdge, goalEdge, currentParent, currentChild);
+        Debug.Log(move);
         movesUsedSequence.Add(move);
  
         movesUsed++;

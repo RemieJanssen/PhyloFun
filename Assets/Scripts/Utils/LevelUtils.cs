@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -120,7 +120,9 @@ public static class LevelUtils
         levelFileNames[2].Add("HeadTrianglesToTheTop.lvl");// move triangles to the top
         levelFileNames[2].Add("HeadSimulateBasicTailMove.lvl");// Tail move using extra head
 
-        levelFileNames[3].Add("1");// most basic scheme for a head move
+        levelFileNames[3].Add("1");// A-networks tail and head moves
+        levelFileNames[3].Add("2");
+        levelFileNames[3].Add("3");
 
 
         for(int i=0; i<noOfWorlds; i++){

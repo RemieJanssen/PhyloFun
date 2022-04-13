@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
@@ -564,6 +564,7 @@ public class GraphNode : MonoBehaviour
                 graph.Find(parent, this).Hidden = true;
                 // Make new endpoint to move
                 newEndpoint = graph.AddNode(transform.position + 1.5f*nodeRadius * Vector3.Normalize(parent.Position - transform.position));
+			newEndpoint.LevelTextId = this.LevelTextId;
                 newEdge = graph.AddEdge(parent, newEndpoint);
                 newEdge.NonSocket(true);
                 newEndpoint.RearrangementEndpoint = true;
