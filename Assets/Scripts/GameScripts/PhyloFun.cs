@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -213,14 +213,14 @@ public class PhyloFun : MonoBehaviour
         {
             case "S":
                 //If used, must occur before the nodes!
-               separation = float.Parse(values[1], CultureInfo.InvariantCulture);
+               separation = float.Parse(values[1]);
                 break;
             case "V":
 //                Debug.Log("Adding node");
                 graphNo = int.Parse(values[1]);
-                int nodeId = int.Parse(values[2], CultureInfo.InvariantCulture);
-                float posx = (float.Parse(values[3], CultureInfo.InvariantCulture) + separation*graphNo) * ScreenUtils.GameplayWidth / (1+separation);
-                float posy = -float.Parse(values[4], CultureInfo.InvariantCulture) * ScreenUtils.GameplayHeight;
+                int nodeId = int.Parse(values[2]);
+                float posx = (float.Parse(values[3]) + separation*graphNo) * ScreenUtils.GameplayWidth / (1+separation);
+                float posy = -float.Parse(values[4]) * ScreenUtils.GameplayHeight;
                 Vector3 pos = new Vector3(posx, posy, 0)+ ScreenUtils.GameplayTopLeft;
                 GraphNode newNode = graphs[graphNo].AddNode(pos);
                 graphNodesById[graphNo][nodeId] = newNode;
