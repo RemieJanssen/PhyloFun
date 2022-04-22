@@ -9,9 +9,17 @@ public static class ScreenUtils
 {
     #region Fields
 
+    #if !UNITY_EDITOR && UNITY_WEBGL
+        static float ScreenWidth = 1280f;
+        static float ScreenHeight = 720f;
+    #else
+        static float ScreenWidth = Screen.width;
+        static float ScreenHeight = Screen.height;    
+    #endif
+
     //Margin in screenSize system
     static float hudMarginLeft = 0f;
-    static float hudMarginRight = 300f/1280f*Screen.width;
+    static float hudMarginRight = ScreenWidth / 1280f * 300f;
     static float hudMarginTop = 0f;
     static float hudMarginBottom = 0f;
 
@@ -175,7 +183,7 @@ public static class ScreenUtils
         float screenZ = -Camera.main.transform.position.z;
         Vector3 lowerLeftCornerScreen = new Vector3(0, 0, screenZ);
         Vector3 upperRightCornerScreen = new Vector3(
-            Screen.width, Screen.height, screenZ);
+            ScreenWidth, ScreenHeight, screenZ);
         Vector3 lowerLeftCornerWorld =
             Camera.main.ScreenToWorldPoint(lowerLeftCornerScreen);
         Vector3 upperRightCornerWorld =
@@ -192,11 +200,11 @@ public static class ScreenUtils
 
 
         // Set the part of the screen used for the actual gameplay.
-        Debug.Log(Screen.width);
-        Debug.Log(Screen.width - hudMarginRight);
+        Debug.Log(ScreenWidth);
+        Debug.Log(ScreenWidth - hudMarginRight);
         Vector3 lowerLeftCornerGame = new Vector3(hudMarginLeft, hudMarginBottom, screenZ);
         Vector3 upperRightCornerGame = new Vector3(
-            Screen.width- hudMarginRight, Screen.height- hudMarginTop, screenZ);
+            ScreenWidth - hudMarginRight, ScreenHeight - hudMarginTop, screenZ);
         Vector3 lowerLeftCornerGameWorld =
             Camera.main.ScreenToWorldPoint(lowerLeftCornerGame);
         Vector3 upperRightCornerGameWorld =
