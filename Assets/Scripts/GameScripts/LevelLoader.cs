@@ -139,7 +139,7 @@ public class LevelLoader : MonoBehaviour
         loading = true;
         Debug.Log("JSON level source text:");
         string fileName = LevelUtils.LevelName(levelId, worldId);
-        string filePath = $"http://phylofun.remiejanssen.nl/api/rearrangementproblems/{fileName}";
+        string filePath = $"http://phylofun.remiejanssen.nl/api/rearrangementproblems/{fileName}/";
         //Replace WWW with UnityWebRequest, www with webRequest and www.text with webRequest.downloadHandler.text ?
         // see https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.Get.html
         WWW www = new WWW(filePath);
