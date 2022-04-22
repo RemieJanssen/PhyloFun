@@ -355,7 +355,7 @@ public class GraphNode : MonoBehaviour
             }
             else
             {
-		size = size *1.2f;
+		        size = size *1.2f;
                 transform.localScale = new Vector3( size, size, size );
                 GameObject.layer = 9;
                 Vector3 pos = Position;
@@ -609,6 +609,7 @@ public class GraphNode : MonoBehaviour
 
     float ClampedX(float xCoordinate, float minX, float maxX)
     {
+//        Debug.Log($"{xCoordinate}, {nodeRadius}, {minX}, {maxX}");
         if (xCoordinate + 2*nodeRadius > maxX)
         {
             return maxX - 2*nodeRadius;

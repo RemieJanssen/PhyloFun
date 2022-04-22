@@ -31,9 +31,7 @@ public static class GameConstants
             if(IsMobile()){
                 nodeBaseSize = mobileNodeBaseSize;
             }
-        #elif UNITY_ANDROID
-            nodeBaseSize = mobileNodeBaseSize;
-        #elif UNITY_IOS
+        #elif UNITY_ANDROID || UNITY_IOS
             nodeBaseSize = mobileNodeBaseSize;
         #endif
     }

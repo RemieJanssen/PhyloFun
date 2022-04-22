@@ -16,6 +16,7 @@ public class GameInitializer : MonoBehaviour
         System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo( "en-US" );
         // initialize utilities
         ScreenUtils.Initialize();
+        GameConstants.Initialize();
         ObjectPool.Initialize();
         LevelUtils.Initialize();
         GameState.Initialize();
