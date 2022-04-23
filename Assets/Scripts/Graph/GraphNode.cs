@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +17,7 @@ public class GraphNode : MonoBehaviour
     List<GraphNode> children;
     List<GraphNode> parents;
     int id;
+    int levelTextId;
 
     // type support
     [SerializeField]
@@ -130,6 +131,12 @@ public class GraphNode : MonoBehaviour
     public int LabelId
     {
         get { return labelId; }
+    }
+
+    public int LevelTextId
+    {
+        get { return levelTextId; }
+        set { levelTextId = value; }
     }
 
 
@@ -348,7 +355,7 @@ public class GraphNode : MonoBehaviour
             }
             else
             {
-		size = size *1.2f;
+		        size = size *1.2f;
                 transform.localScale = new Vector3( size, size, size );
                 GameObject.layer = 9;
                 Vector3 pos = Position;
@@ -528,7 +535,7 @@ public class GraphNode : MonoBehaviour
                         {
                             movingEdge = graph.Find(parent,this);
                         }
-                        GameState.Rearrange(movingEdge, socket, this);
+                        GameState.Rearrange(this, movingEdge, socket);
                         GameState.EndRearrangement();
                     }
                     // otherwise, snap back to original position.
@@ -557,6 +564,7 @@ public class GraphNode : MonoBehaviour
                 graph.Find(parent, this).Hidden = true;
                 // Make new endpoint to move
                 newEndpoint = graph.AddNode(transform.position + 1.5f*nodeRadius * Vector3.Normalize(parent.Position - transform.position));
+			newEndpoint.LevelTextId = this.LevelTextId;
                 newEdge = graph.AddEdge(parent, newEndpoint);
                 newEdge.NonSocket(true);
                 newEndpoint.RearrangementEndpoint = true;
@@ -601,6 +609,7 @@ public class GraphNode : MonoBehaviour
 
     float ClampedX(float xCoordinate, float minX, float maxX)
     {
+//        Debug.Log($"{xCoordinate}, {nodeRadius}, {minX}, {maxX}");
         if (xCoordinate + 2*nodeRadius > maxX)
         {
             return maxX - 2*nodeRadius;
@@ -868,7 +877,7 @@ public class GraphNode : MonoBehaviour
     public override string ToString()
     {
         Vector2 gpPos = ScreenUtils.WorldToGameplayPosition(transform.position);
-        string vertexInfo = "V,," + Id.ToString() +","+ gpPos.x.ToString() + "," + gpPos.y.ToString();
+        string vertexInfo = $"V,0,{LevelTextId},{gpPos.x},{gpPos.y}";
         return vertexInfo;
     }
 

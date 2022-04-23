@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,7 +70,7 @@ public static class LevelUtils
         levelFileNames = new List<List<string>>();
         noOfWorlds = 4;
         noOfLevels = new List<int>();
-        unlockNewWorldAt = new List<int> {7,4,4,999};
+        unlockNewWorldAt = new List<int> {7,4,4,99999};
         
         for(int i=0;i<noOfWorlds;i++){
             levelFileNames.Add(new List<string>());
@@ -120,9 +120,14 @@ public static class LevelUtils
         levelFileNames[2].Add("HeadTrianglesToTheTop.lvl");// move triangles to the top
         levelFileNames[2].Add("HeadSimulateBasicTailMove.lvl");// Tail move using extra head
 
+        levelFileNames[3].Add("1");// A-networks tail and head moves
+        levelFileNames[3].Add("2");
+        levelFileNames[3].Add("3");
+
+
         for(int i=0; i<noOfWorlds; i++){
             noOfLevels[i] = levelFileNames[i].Count;
-            Debug.Log(noOfLevels[i]);
+            Debug.Log($"{noOfLevels[i]} levels in world {i+1}");
         }        
         
     }

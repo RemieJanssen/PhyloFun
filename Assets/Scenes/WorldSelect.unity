@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: ade079c32223b5e9193f41b2dd5372f6,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -118,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -523,14 +526,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3042989367964885968, guid: ae6d8c9354f94713aa460480d3159779,
-        type: 3}
+      objectReference: {fileID: 884730918}
     - target: {fileID: 449726514619921568, guid: ae6d8c9354f94713aa460480d3159779,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 3042989367964885968, guid: ae6d8c9354f94713aa460480d3159779,
-        type: 3}
+      objectReference: {fileID: 884730918}
     - target: {fileID: 449726514619921568, guid: ae6d8c9354f94713aa460480d3159779,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -560,6 +561,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 449726514619921568, guid: ae6d8c9354f94713aa460480d3159779,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WorldButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 449726514619921568, guid: ae6d8c9354f94713aa460480d3159779,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: WorldButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2408628330737348846, guid: ae6d8c9354f94713aa460480d3159779,
         type: 3}
@@ -679,6 +690,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 884730916}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &884730918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3042989367964885968, guid: ae6d8c9354f94713aa460480d3159779,
+    type: 3}
+  m_PrefabInstance: {fileID: 884730916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146662122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f6a2c1ee0c88bcb86c0d4a4b8f5e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &929068423 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2408628330737348846, guid: ae6d8c9354f94713aa460480d3159779,

@@ -20,9 +20,9 @@ public class WorldSelectScreen : MonoBehaviour
     void LoadButtons()
     {
         // Set all the world buttons.
-        for (int j =0; j<GameState.CurrentMedals.Count; j++)
+        for (int j = 0; j < GameState.CurrentMedals.Count; j++)
         {
-            Debug.Log("world "+(j+1).ToString()+" medals"+GameState.CurrentMedals[j].Count.ToString());
+            Debug.Log($"world {j+1} medals {GameState.CurrentMedals[j].Count}");
         }
         
         

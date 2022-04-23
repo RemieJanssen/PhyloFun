@@ -15,7 +15,9 @@ public class WorldButton : MonoBehaviour
         set 
         { 
             worldNumber = value;
+            Debug.Log($"setting world number {worldNumber}");
             ButtonText.text = worldNumber.ToString();
+            Debug.Log($"{ButtonText.text} button text");
         }
     }
 
@@ -46,8 +48,8 @@ public class WorldButton : MonoBehaviour
 
     public void OnClicked()
     {
-        Debug.Log("Clicked world button:");
-        Debug.Log(worldNumber);
+        Debug.Log($"Clicked world button: {worldNumber}");
+        Debug.Log(ButtonText.text);
         GameState.SetCurrentWorld(worldNumber);
         MenuManager.GoToMenu(MenuName.LevelSelect);
     }
