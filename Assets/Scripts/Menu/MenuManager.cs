@@ -31,6 +31,11 @@ public static class MenuManager
                 Time.timeScale = 1;
                 SceneManager.LoadScene("LevelSelect");
                 break;
+            case MenuName.LevelSelectScience:
+                popupMenuActive = false;
+                Time.timeScale = 1;
+                SceneManager.LoadScene("LevelSelectScience");
+                break;
             case MenuName.WorldSelect:
                 popupMenuActive = false;
                 Time.timeScale = 1;

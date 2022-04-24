@@ -29,7 +29,12 @@ public class MenuButton : MonoBehaviour
 
     public void GoToLevelSelect()
     {
-        MenuManager.GoToMenu(MenuName.LevelSelect);
+        if (GameState.OnlineLevel){
+            MenuManager.GoToMenu(MenuName.LevelSelectScience);
+        } else {
+            MenuManager.GoToMenu(MenuName.LevelSelect);
+        }
+        
     }
 
     public void GoToWorldSelect()

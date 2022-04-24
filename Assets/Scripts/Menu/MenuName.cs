@@ -7,6 +7,7 @@ public enum MenuName
     Main,
     Help,
     LevelSelect,
+    LevelSelectScience,
     WorldSelect,
     Message,
     Gameplay,
