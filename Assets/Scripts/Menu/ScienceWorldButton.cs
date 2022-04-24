@@ -3,23 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WorldButton : MonoBehaviour
+public class ScienceWorldButton : MonoBehaviour
 {
     Text ButtonText;
-    int worldNumber;
     bool active;
-
-    public int WorldNumber
-    {
-        get { return worldNumber; }
-        set 
-        { 
-            worldNumber = value;
-            Debug.Log($"setting world number {worldNumber}");
-            ButtonText.text = worldNumber.ToString();
-            Debug.Log($"{ButtonText.text} button text");
-        }
-    }
 
     public bool Active
     {
@@ -40,20 +27,19 @@ public class WorldButton : MonoBehaviour
 
     void Awake()
     {
-        worldNumber = 0;
         ButtonText = transform.GetChild(0).gameObject.GetComponent<Text>();
         active = true;
     }
 
-
     public void OnClicked()
     {
-        Debug.Log($"Clicked world button: {worldNumber}");
+        Debug.Log($"Clicked world button: Science");
         Debug.Log(ButtonText.text);
-        GameState.OnlineLevel = false;
-        GameState.SetCurrentWorld(worldNumber);
-        MenuManager.GoToMenu(MenuName.LevelSelect);
+        GameState.OnlineLevel = true;
+        GameState.SetCurrentWorld(-1);
+        MenuManager.GoToMenu(MenuName.LevelSelectScience);
     }
+
 
     public void ButtonClicked()
     {

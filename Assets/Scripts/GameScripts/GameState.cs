@@ -268,7 +268,7 @@ public static class GameState
 
     public static bool SetCurrentLevel(int levelNumber)
     {
-        if (levelNumber <= LevelUtils.NoOfLevels(currentWorld))
+        if (onlineLevel || levelNumber <= LevelUtils.NoOfLevels(currentWorld))
         {
             currentLevel = levelNumber;
             loader.LoadLevel(currentLevel, currentWorld);
