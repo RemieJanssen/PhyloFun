@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1250297241474436378}
   m_RootOrder: 1
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -102,6 +104,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1250297241474436378}
   m_RootOrder: 2
@@ -134,12 +137,13 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
@@ -181,6 +185,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2410118787624156857}
   - {fileID: 7314755673548214850}
@@ -238,6 +243,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2369384897931139091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +289,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1250297241474436378}
   m_RootOrder: 0
@@ -315,6 +322,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -463,12 +471,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b7c68ef1edc56f5fa79eb4a423b9462, type: 3}
---- !u!224 &6353063886310628210 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6410216015262929797, guid: 9b7c68ef1edc56f5fa79eb4a423b9462,
-    type: 3}
-  m_PrefabInstance: {fileID: 62826580173129975}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1592018729467056991 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -7581589072241812568, guid: 9b7c68ef1edc56f5fa79eb4a423b9462,
@@ -481,6 +483,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc02cc1fb9d3bc3a51222803511ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6353063886310628210 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6410216015262929797, guid: 9b7c68ef1edc56f5fa79eb4a423b9462,
+    type: 3}
+  m_PrefabInstance: {fileID: 62826580173129975}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &428391046568666354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -615,12 +623,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b7c68ef1edc56f5fa79eb4a423b9462, type: 3}
---- !u!224 &6702582079943260023 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6410216015262929797, guid: 9b7c68ef1edc56f5fa79eb4a423b9462,
-    type: 3}
-  m_PrefabInstance: {fileID: 428391046568666354}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1385203830721216346 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -7581589072241812568, guid: 9b7c68ef1edc56f5fa79eb4a423b9462,
@@ -633,3 +635,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc02cc1fb9d3bc3a51222803511ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6702582079943260023 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6410216015262929797, guid: 9b7c68ef1edc56f5fa79eb4a423b9462,
+    type: 3}
+  m_PrefabInstance: {fileID: 428391046568666354}
+  m_PrefabAsset: {fileID: 0}

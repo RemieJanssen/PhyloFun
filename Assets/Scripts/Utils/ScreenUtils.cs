@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +9,13 @@ public static class ScreenUtils
 {
     #region Fields
 
+    static float ScreenWidth = Camera.main.pixelWidth;
+    static float ScreenHeight = Camera.main.pixelHeight;
+    static float screenZ = -Camera.main.transform.position.z;
+
     //Margin in screenSize system
-    static float hudMarginLeft = 0f;
     static float hudMarginRight = 300f;
+    static float hudMarginLeft = 0f;
     static float hudMarginTop = 0f;
     static float hudMarginBottom = 0f;
 
@@ -53,6 +57,12 @@ public static class ScreenUtils
         get { return hudMarginBottom; }
     }
 
+
+
+    public static float ScreenZ
+    {
+        get { return screenZ; }
+    }
 
 
     /// <summary>
@@ -171,11 +181,18 @@ public static class ScreenUtils
     /// </summary>
     public static void Initialize()
     {
+        // set the right hud margin so that the
+        // right menu has enough space
+        if (ScreenWidth/ScreenHeight > 1280f/720f){
+            hudMarginRight = 300f * ScreenHeight / 720f;
+        } else {
+            hudMarginRight = 300f * ScreenWidth / 1280f;
+        }
+    
         // save screen edges in world coordinates
-        float screenZ = -Camera.main.transform.position.z;
-        Vector3 lowerLeftCornerScreen = new Vector3(0, 0, screenZ);
+        Vector3 lowerLeftCornerScreen = new Vector3(0f, 0f, screenZ);
         Vector3 upperRightCornerScreen = new Vector3(
-            Screen.width, Screen.height, screenZ);
+            ScreenWidth, ScreenHeight, screenZ);
         Vector3 lowerLeftCornerWorld =
             Camera.main.ScreenToWorldPoint(lowerLeftCornerScreen);
         Vector3 upperRightCornerWorld =
@@ -192,11 +209,17 @@ public static class ScreenUtils
 
 
         // Set the part of the screen used for the actual gameplay.
-        Debug.Log(Screen.width);
-        Debug.Log(Screen.width - hudMarginRight);
+        Debug.Log(ScreenWidth);
+        Debug.Log(ScreenWidth - hudMarginRight);
+        Debug.Log(screenZ);
+        Vector3 nullVector = new Vector3(0,0,0);
+        Vector3 nullVectorz = new Vector3(0,0,-10);
+        Debug.Log($"nullvector {nullVector}, {Camera.main.ScreenToWorldPoint(nullVector)}");
+        Debug.Log($"nullvectorz {nullVectorz}, {Camera.main.ScreenToWorldPoint(nullVectorz)}");
+        
         Vector3 lowerLeftCornerGame = new Vector3(hudMarginLeft, hudMarginBottom, screenZ);
         Vector3 upperRightCornerGame = new Vector3(
-            Screen.width- hudMarginRight, Screen.height- hudMarginTop, screenZ);
+            ScreenWidth - hudMarginRight, ScreenHeight - hudMarginTop, screenZ);
         Vector3 lowerLeftCornerGameWorld =
             Camera.main.ScreenToWorldPoint(lowerLeftCornerGame);
         Vector3 upperRightCornerGameWorld =

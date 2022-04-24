@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -61,9 +61,7 @@ public class PhyloFun : MonoBehaviour
     {
         foreach (GraphNode node in changeGraph.Nodes)
         {
-            Debug.Log(node.Id.ToString()+" "+node.Position.ToString());
             node.ConnectToSocket();
-            Debug.Log(node.Id.ToString()+" "+node.Position.ToString());
         }
 
     }
@@ -83,6 +81,7 @@ public class PhyloFun : MonoBehaviour
                 return;
             }
         }
+        List<List<int>> isomorphism = new List<List<int>>();
         foreach (GraphNode node in goalGraph.Nodes)
         {
             if (!node.IsMapped)
@@ -90,8 +89,13 @@ public class PhyloFun : MonoBehaviour
                 Debug.Log("Not all nodes mapped");
                 return;
             }
+            isomorphism.Add(new List<int>(){node.LevelTextId, node.MappedNode.LevelTextId});
         }
         //The level has been won
+        if (GameState.OnlineLevel) {
+            GameState.SendLevelSolution(isomorphism);
+        }
+
         //Check whether a second medal is earned
         int medals = 1;
         int currentMedals = GameState.CurrentMedals[GameState.CurrentWorld-1][GameState.CurrentLevel-1];
@@ -111,7 +115,6 @@ public class PhyloFun : MonoBehaviour
         // open the level-won pop-up menu
         MenuManager.GoToMenu(MenuName.Won);
         print("Yay, you won!");
-        return;
     }
 
 
@@ -139,8 +142,8 @@ public class PhyloFun : MonoBehaviour
         graphs = new DiGraph[2] { goalGraph, changeGraph };
         graphNodesById = new Dictionary<int, GraphNode>[2] { goalNodesByID, changeNodesByID };
         
-        //now read the file for the level
-        //string levelPath = Path.Combine(Application.streamingAssetsPath, levelFileName);
+        // now read the file for the level
+        // string levelPath = Path.Combine(Application.streamingAssetsPath, levelFileName);
         StreamReader input = null;
 
         //wait for the loading to finish
@@ -154,9 +157,9 @@ public class PhyloFun : MonoBehaviour
 
         try
         {
-            //Set the level name to standard: "Level: [levelnumber]"
+            // Set the level name to standard: "Level: [levelnumber]"
             GameState.LevelName = "";
-            //Default separation 
+            // Default separation 
             separation = separationDefault;
             using (Stream stream = GenerateStreamFromString(LevelUtils.LevelText))
             {
@@ -209,25 +212,19 @@ public class PhyloFun : MonoBehaviour
         switch (type)
         {
             case "S":
-                //If used, must occur before the nodes!
-               separation = float.Parse(values[1], CultureInfo.InvariantCulture);
+                // If used, must occur before the nodes!
+               separation = float.Parse(values[1]);
                 break;
             case "V":
 //                Debug.Log("Adding node");
                 graphNo = int.Parse(values[1]);
-                int nodeId = int.Parse(values[2], CultureInfo.InvariantCulture);
-                float posx = (float.Parse(values[3], CultureInfo.InvariantCulture) + separation*graphNo) * ScreenUtils.GameplayWidth / (1+separation);
-                float posy = -float.Parse(values[4], CultureInfo.InvariantCulture) * ScreenUtils.GameplayHeight;
+                int nodeId = int.Parse(values[2]);
+                float posx = (float.Parse(values[3]) + separation*graphNo) * ScreenUtils.GameplayWidth / (1+separation);
+                float posy = -float.Parse(values[4]) * ScreenUtils.GameplayHeight;
                 Vector3 pos = new Vector3(posx, posy, 0)+ ScreenUtils.GameplayTopLeft;
-                Debug.Log("How are my nodes placed so weird?");
-                Debug.Log(values[4]);
-                Debug.Log(float.Parse(values[4], CultureInfo.InvariantCulture));
-                Debug.Log(posy);
-                Debug.Log(ScreenUtils.GameplayHeight);
-                Debug.Log(ScreenUtils.GameplayTopLeft);
-                Debug.Log(pos);
                 GraphNode newNode = graphs[graphNo].AddNode(pos);
                 graphNodesById[graphNo][nodeId] = newNode;
+                newNode.LevelTextId = nodeId;
                 break;
             case "E":
 //                Debug.Log("Adding an edge");

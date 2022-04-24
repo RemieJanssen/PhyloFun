@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +12,11 @@ public class GameInitializer : MonoBehaviour
     /// </summary>
 	void Awake()
     {
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo( "en-US" );
+        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo( "en-US" );
         // initialize utilities
         ScreenUtils.Initialize();
+        GameConstants.Initialize();
         ObjectPool.Initialize();
         LevelUtils.Initialize();
         GameState.Initialize();
