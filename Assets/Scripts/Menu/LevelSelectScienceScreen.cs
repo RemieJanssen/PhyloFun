@@ -87,12 +87,9 @@ public class LevelSelectScienceScreen : MonoBehaviour
     IEnumerator GetLevelIdsFromBackend()
     {
         requestingLevels = true;
-        UnityWebRequest uwr = new UnityWebRequest(currentPageUrl, "GET");
-        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-        uwr.SetRequestHeader("Content-Type", "application/json");
-
-        yield return uwr.SendWebRequest();
-        string result = uwr.downloadHandler.text;
+        WWW webRequest = new WWW(currentPageUrl);
+        yield return webRequest;
+        string result = webRequest.text;
         Debug.Log("Parsing JSON to levelIds");
         Debug.Log(result);
         ProblemListBackendStyle problems = JsonConvert.DeserializeObject<ProblemListBackendStyle>(result);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using System;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -54,9 +55,9 @@ public class LevelLoader : MonoBehaviour
         string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, fileName);
         if (filePath.Contains("://") || filePath.Contains(":///"))
         {
-            UnityWebRequest webRequest = new UnityWebRequest(filePath);
+            WWW webRequest = new WWW(filePath);
             yield return webRequest;
-            levelText = webRequest.downloadHandler.text;
+            levelText = webRequest.text;
         }
         else
         {
@@ -144,7 +145,7 @@ public class LevelLoader : MonoBehaviour
         try {
             levelText = ParseJSONLevelText(levelText);
         } 
-        catch (System.NullReferenceException e){
+        catch (NullReferenceException e){
             levelText = null;
         }        
         Debug.Log(levelText);
