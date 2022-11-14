@@ -34,12 +34,11 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(int levelId, int worldId)
     {
-        Debug.Log($"Level: {levelId}, World: {worldId}");
-        GameState.OnlineLevel = (worldId == 4);
         if (GameState.OnlineLevel){
-            StartCoroutine(GetLevelTextFromBackend(levelId, worldId));
+            StartCoroutine(GetLevelTextFromBackend(levelId));
         }
         else {
+            Debug.Log($"Level: {levelId}, World: {worldId}");
             StartCoroutine(GetLevelTextFromFile(levelId, worldId));
         }
     }
@@ -57,11 +56,9 @@ public class LevelLoader : MonoBehaviour
         string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, fileName);
         if (filePath.Contains("://") || filePath.Contains(":///"))
         {
-            //Replace WWW with UnityWebRequest, www with webRequest and www.text with webRequest.downloadHandler.text ?
-            // see https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.Get.html
-            WWW www = new WWW(filePath);
-            yield return www;
-            levelText = www.text;
+            WWW webRequest = new WWW(filePath);
+            yield return webRequest;
+            levelText = webRequest.text;
         }
         else
         {
@@ -136,20 +133,22 @@ public class LevelLoader : MonoBehaviour
         return levelText;
     }
 
-    IEnumerator GetLevelTextFromBackend(int levelId, int worldId)
+    IEnumerator GetLevelTextFromBackend(int levelId)
     {
         loading = true;
-        Debug.Log("JSON level source text:");
-        string fileName = LevelUtils.LevelName(levelId, worldId);
-        string filePath = $"http://phylofun.remiejanssen.nl/api/rearrangementproblems/{fileName}/";
-        //Replace WWW with UnityWebRequest, www with webRequest and www.text with webRequest.downloadHandler.text ?
-        // see https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.Get.html
-        WWW www = new WWW(filePath);
-        yield return www;
-        levelText = www.text;
+        string filePath = $"http://phylofun.remiejanssen.nl/api/rearrangementproblems/{levelId}/";
+        Debug.Log($"JSON level source text for {filePath}:");
+        WWW webRequest = new WWW(filePath);
+        yield return webRequest;
+        levelText = webRequest.text;
         Debug.Log(levelText);
         Debug.Log("Parsing JSON to level source text:");
-        levelText = ParseJSONLevelText(levelText);
+        try {
+            levelText = ParseJSONLevelText(levelText);
+        } 
+        catch (NullReferenceException e){
+            levelText = null;
+        }        
         Debug.Log(levelText);
         loading = false;
     }
@@ -157,7 +156,7 @@ public class LevelLoader : MonoBehaviour
 
     IEnumerator SendLevelSolutionHandler(List<List<int>> isomorphism)
     {
-        string fileName = LevelUtils.LevelName(GameState.CurrentLevel, GameState.CurrentWorld);
+        int levelId = GameState.CurrentLevel;
         string url = "http://phylofun.remiejanssen.nl/api/rearrangementsolutions/";
         
         string json_sequence = "[";
@@ -168,7 +167,7 @@ public class LevelLoader : MonoBehaviour
         
         string isomorphismString = JsonConvert.SerializeObject(isomorphism);
         
-        string solution_json = $"{{\"sequence\": {json_sequence}, \"problem\": \"http://phylofun.remiejanssen.nl/api/rearrangementproblems/{fileName}/\", \"isomorphism\": {isomorphismString}}}";
+        string solution_json = $"{{\"sequence\": {json_sequence}, \"problem\": \"http://phylofun.remiejanssen.nl/api/rearrangementproblems/{levelId}/\", \"isomorphism\": {isomorphismString}}}";
         
         Debug.Log(solution_json);
         var uwr = new UnityWebRequest(url, "POST");

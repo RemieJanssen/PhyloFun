@@ -91,25 +91,29 @@ public class PhyloFun : MonoBehaviour
             }
             isomorphism.Add(new List<int>(){node.LevelTextId, node.MappedNode.LevelTextId});
         }
-        //The level has been won
+        // The level has been won
+        
+        // Send the solution to the backend if it's an online level
         if (GameState.OnlineLevel) {
             GameState.SendLevelSolution(isomorphism);
         }
 
-        //Check whether a second medal is earned
-        int medals = 1;
-        int currentMedals = GameState.CurrentMedals[GameState.CurrentWorld-1][GameState.CurrentLevel-1];
-        if(GameState.MovesGoal==-1 || GameState.MovesUsed<=GameState.MovesGoal)
-        {
-            medals++;
+        // Set medals if it's a standard level
+        if (!GameState.OnlineLevel){
+            int medals = 1;
+            int currentMedals = GameState.CurrentMedals[GameState.CurrentWorld-1][GameState.CurrentLevel-1];
+            if (GameState.MovesGoal==-1 || GameState.MovesUsed<=GameState.MovesGoal)
+            {
+                medals++;
+            }
+            if (currentMedals>medals)
+            {
+                medals = currentMedals;
+            } 
+            // Set the new unlocked levels
+            GameState.SetMedals(GameState.CurrentWorld,GameState.CurrentLevel,medals);
         }
-        if(currentMedals>medals)
-        {
-            medals = currentMedals;
-        } 
         
-        // Set the new unlocked levels
-        GameState.SetMedals(GameState.CurrentWorld,GameState.CurrentLevel,medals);
         // play some sound
         AudioManager.Play(AudioClipName.LevelWin);
         // open the level-won pop-up menu
@@ -150,6 +154,7 @@ public class PhyloFun : MonoBehaviour
         print("starting load:");
         while(LevelUtils.Loading)
         {
+            // TODO: make a loading screen
             print("waiting for read level file.");
             yield return new WaitForSeconds(0.1f);
         }
