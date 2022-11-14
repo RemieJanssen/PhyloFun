@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -159,8 +161,8 @@ public class LevelLoader : MonoBehaviour
         string url = "http://phylofun.remiejanssen.nl/api/rearrangementsolutions/";
         
         string json_sequence = "[";
-        foreach (RearrangementMove m in GameState.MovesUsedSequence){
-            json_sequence += m.ToJson()+",";
+        foreach (RearrangementMove m in Enumerable.Reverse(GameState.MovesUsedSequence)){
+            json_sequence += m.ToJsonReversed(isomorphism)+",";
         }
         json_sequence = json_sequence.TrimEnd(',') + "]";
         

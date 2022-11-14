@@ -95,6 +95,19 @@ public class RearrangementMove
     }
     
 
+    public string ToJsonReversed(List<List<int>> isomorphism)
+    {
+        Dictionary<int, int> isomorphism_as_dict = new Dictionary<int, int>();
+        foreach (List<int> pair in isomorphism){
+            isomorphism_as_dict[pair[1]] = pair[0];
+        }
+        string type = "TAIL";
+        if (Type()==MoveType.HEAD){
+            type = "HEAD";
+        }
+        return $"{{\"move_type\": \"{type}\", \"origin\": [{isomorphism_as_dict[goalEdgeTailId]}, {isomorphism_as_dict[goalEdgeHeadId]}],  \"moving_edge\": [{isomorphism_as_dict[movingEdgeTailId]}, {isomorphism_as_dict[movingEdgeHeadId]}],  \"target\": [{isomorphism_as_dict[originEdgeTailId]}, {isomorphism_as_dict[originEdgeHeadId]}]}}";
+    }
+
     #endregion
 }
 
